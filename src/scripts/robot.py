@@ -8,8 +8,8 @@ class RobotModel(pg.sprite.Sprite):
     def __init__(self, x, y, group):
         super().__init__(group)
         
-        self.image = pg.Surface((SPRITE_SIZE, SPRITE_SIZE), pg.SRCALPHA)
-        self.image.fill(YELLOW)
+        self.image = pg.image.load('tank.png')
+        self.image = pg.transform.scale(self.image, (self.image.get_rect().width / SPRITE_SIZE, self.image.get_rect().height / SPRITE_SIZE))
         
         # prevent image from getting distored
         self.original_image = self.image.copy()

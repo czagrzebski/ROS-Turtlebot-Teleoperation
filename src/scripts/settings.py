@@ -2,7 +2,7 @@ import math
 
 # Sprite Settings
 SPRITE_SIZE = 20
-STEP_SIZE = 50
+STEP_SIZE = 100
 
 # Screen Configurations
 SCREEN_WIDTH = 400

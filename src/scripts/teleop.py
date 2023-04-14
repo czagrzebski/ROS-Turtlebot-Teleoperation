@@ -12,7 +12,6 @@ from settings import *
 from pygame.locals import * 
 from geometry_msgs.msg import Twist
 import rospy
-import threading
 
 class Teleop():
     def __init__(self):
@@ -31,11 +30,8 @@ class Teleop():
         self.tw.linear.x = 0
         self.tw.linear.y = 0  
         self.ros_clock = rospy.Rate(ROS_RATE)
-        
-    
+           
     def run(self):
-        #self.thread = threading.Thread(target=self.ros_loop)
-        #self.thread.start()
         while self.running:
             self.clock.tick(FPS)
             self.events()
@@ -46,7 +42,7 @@ class Teleop():
         for event in pg.event.get():
             if event.type == QUIT:
                 self.running = False
-                self.thread.join()
+                pg.quit()
                 sys.exit()
             
             if event.type == KEYDOWN:
@@ -76,10 +72,6 @@ class Teleop():
         self.all_sprites.draw(self.screen)
         pg.display.flip()
 
-    def ros_loop(self):
-        while not rospy.is_shutdown():
-            self.pub.publish(self.tw)
-            self.ros_clock.sleep()
 
 if __name__ == "__main__":
     teleop = Teleop()

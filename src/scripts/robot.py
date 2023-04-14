@@ -10,6 +10,7 @@ from pygame.locals import *
 from settings import *
 import tf
 import numpy as np
+import rospkg
 
 class Model(pg.sprite.Sprite):
     def __init__(self, x, y, group):
@@ -43,13 +44,14 @@ class Model(pg.sprite.Sprite):
   
     def update(self):
         # Translate robot to new position in global frame
-        self.rect.x -= self.pw[1] * STEP_SIZE
-        self.rect.y -= self.pw[0] * STEP_SIZE
+        self.rect.x -= self.pw[1] * PIXPERM
+        self.rect.y -= self.pw[0] * PIXPERM
          
 class RobotModel(Model):
     def __init__(self, x, y, group):
         super().__init__(x, y, group)
-        self.image = pg.image.load('tank.png')
+        ros_pack = rospkg.RosPack()
+        self.image = pg.image.load(ros_pack.get_path('teleop') + '/src/scripts/tank.png')
         self.image = pg.transform.scale(self.image, (self.image.get_rect().width / SPRITE_SIZE, self.image.get_rect().height / SPRITE_SIZE))
         self.original_image = self.image.copy()
         self.rect = self.image.get_rect()

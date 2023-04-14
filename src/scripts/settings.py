@@ -2,7 +2,7 @@ import math
 
 # Sprite Settings
 SPRITE_SIZE = 20
-STEP_SIZE = 100
+PIXPERM = 100
 
 # Screen Configurations
 SCREEN_WIDTH = 400
@@ -23,3 +23,12 @@ BLACK = (0, 0, 0)
 
 # Rotations 
 ZAXIS = (0, 0, 1)
+
+
+
+
+
+
+
+
+

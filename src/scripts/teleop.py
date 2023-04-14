@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 teleop.py - Teleoperation control for ROS robots using Differential Drive Control
 
@@ -18,7 +19,6 @@ class Teleop():
         pg.init()
         pg.display.set_caption("Teleop Control")
         self.screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.clock = pg.time.Clock()
         self.running = True
         self.all_sprites = pg.sprite.Group()
         self.robot_model = RobotModel((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2), self.all_sprites)
@@ -33,7 +33,7 @@ class Teleop():
            
     def run(self):
         while self.running:
-            self.clock.tick(FPS)
+            self.ros_clock.sleep()
             self.events()
             self.update()
             self.draw()
@@ -61,7 +61,7 @@ class Teleop():
                 if event.key == K_w or event.key == K_s:
                     self.tw.linear.x = 0
                     
-            self.robot_model.move(v=self.tw.linear.x, a=self.tw.angular.z) 
+        self.robot_model.move(v=self.tw.linear.x, a=self.tw.angular.z) 
                     
     def update(self):
         self.all_sprites.update()
@@ -71,7 +71,6 @@ class Teleop():
         self.screen.fill(BLACK)
         self.all_sprites.draw(self.screen)
         pg.display.flip()
-
 
 if __name__ == "__main__":
     teleop = Teleop()
